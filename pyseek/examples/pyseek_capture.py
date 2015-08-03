@@ -9,4 +9,7 @@ seek = pyseek.PySeek()
 seek.open()
 for i in range(100):
     img = seek.get_array()
-    PGM_write('seek-%u.pgm' % i, img)
+    filename = 'seek-%u.pgm' % i
+    PGM_write(filename, img)
+    print("Saved %s" % filename)
+    
