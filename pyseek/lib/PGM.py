@@ -36,7 +36,7 @@ def PGM_read(filename):
         rawdata = rawdata.byteswap(True)
         rawdata = numpy.reshape(rawdata, (height, width))
     f.close()
-    return rawdata.byteswap(True)
+    return rawdata
 
 
 def PGM_write(filename, rawdata):
@@ -59,7 +59,7 @@ def PGM_write(filename, rawdata):
 %u
 ''' % (width, height, numvalues))
 
-    rawdata = rawdata.byteswap(True)
+    rawdata = rawdata.byteswap(False)
     rawdata = rawdata.tofile(f)
     f.close()
 
