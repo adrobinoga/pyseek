@@ -158,18 +158,21 @@ class PySeek:
                 # for some strange reason there are blank lines and
                 # gaps. This is a rough attempt to fill those in.
                 # it still leaves some speckling
-                for x in range(156):
-                    for y in range(208):
-                        if not self.cal_ok(x,y):
-                            if x > 0 and self.cal_ok(x-1,y):
-                                ret[x][y] = ret[x-1][y]
-                            elif x < 155 and self.cal_ok(x+1,y):
-                                ret[x][y] = ret[x+1][y]
-                            elif y > 0 and self.cal_ok(x,y-1):
-                                ret[x][y] = ret[x][y-1]
-                            elif y < 207 and self.cal_ok(x,y+1):
-                                ret[x][y] = ret[x][y+1]
-
+                bad_cal1 = numpy.where(self.calibration == 0)
+                bad_cal2 = numpy.where(self.calibration > 15000)
+                xidx = list(bad_cal1[0]) + list(bad_cal2[0])
+                yidx = list(bad_cal1[1]) + list(bad_cal2[1])
+                for i in range(len(xidx)):
+                    x = xidx[i]
+                    y = yidx[i]
+                    if x > 0 and self.cal_ok(x-1,y):
+                        ret[x][y] = ret[x-1][y]
+                    elif x < 155 and self.cal_ok(x+1,y):
+                        ret[x][y] = ret[x+1][y]
+                    elif y > 0 and self.cal_ok(x,y-1):
+                        ret[x][y] = ret[x][y-1]
+                    elif y < 207 and self.cal_ok(x,y+1):
+                        ret[x][y] = ret[x][y+1]
                 return ret
 
         raise PySeekError()
