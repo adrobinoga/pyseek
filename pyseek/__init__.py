@@ -125,7 +125,7 @@ class PySeek:
 
             if status == 1:
                 #  Convert the raw calibration data to a string array
-                calimg = Image.fromstring("I", (208,156), ret9, "raw", "I;16")
+                calimg = Image.frombytes("I", (208,156), ret9, "raw", "I;16")
 
                 #  Convert the string array to an unsigned numpy int16 array
                 im2arr = numpy.asarray(calimg)
@@ -133,7 +133,7 @@ class PySeek:
 
             if status == 3 and self.calibration is not None:
                 #  Convert the raw image data to a string array
-                img = Image.fromstring("I", (208,156), ret9, "raw", "I;16")
+                img = Image.frombytes("I", (208,156), ret9, "raw", "I;16")
 
                 #  Convert the string array to an unsigned numpy int16 array
                 im1arr = numpy.asarray(img)
